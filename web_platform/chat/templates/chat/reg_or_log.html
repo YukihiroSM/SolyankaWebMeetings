@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+    {% if type == 'login' %}
+    <form method="get" action="/register">
+        <input type="submit" value="Create an account" />
+    </form>
+    {% endif %}
+</body>
+</html>

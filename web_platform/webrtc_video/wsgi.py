@@ -1,5 +1,5 @@
 """
-WSGI config for solyanka_meet project.
+WSGI config for webrtc_video project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'solyanka_meet.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'webrtc_video.settings')
 
 application = get_wsgi_application()

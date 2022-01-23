@@ -1,0 +1,59 @@
+version: '3.1'
+
+services:
+  db:
+    container_name: db
+    image: postgres
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+    networks:
+      - network
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    env_file:
+      - .local_env
+
+  redis:
+    container_name: redis
+    image: library/redis:5.0-alpine
+    ports:
+      - 6379:6379
+    restart: unless-stopped
+    networks:
+      - network
+    volumes:
+      - redis:/data
+    env_file:
+      - .local_env
+
+  backend:
+    container_name: backend
+    ports:
+      - 8000:8000
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    networks:
+      - network
+    depends_on:
+      - redis
+    volumes:
+      - ./web_platform:/usr/src/app
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8000"
+    env_file:
+      - .local_env
+
+
+volumes:
+  db:
+    driver: local
+  redis:
+    driver: local
+  media:
+    driver: local
+
+networks:
+  network:
+    driver: bridge

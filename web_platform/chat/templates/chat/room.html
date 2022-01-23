@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room</title>
+</head>
+<body>
+    <button id="callButton">Start call</button>
+    <button id="btnVideo" data-is-muted="True">Camera</button>
+    <button id="btnAudio" data-is-muted="False">Micro</button>
+    <h1>YOU</h1>
+    <video id="localVideo" autoplay> You </video>
+    <h1>Another participant</h1>
+    <video id="remoteVideo" autoplay> Another participant </video>
+
+    <script>
+        const roomName = '{{ room_name }}'
+        const username = '{{ username }}'
+    </script>
+    <script src="{% static 'web-rtc.js' %}"></script>
+</body>
+</html>
