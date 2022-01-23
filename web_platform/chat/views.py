@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from .forms import RegistrationForm, LoginForm
 from . import services
 
+def index(request):
+    return render(request, 'chat/index.html')
 
 @login_required(login_url='login')
 def lobby(request):
