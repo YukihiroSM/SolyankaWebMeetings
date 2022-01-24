@@ -68,7 +68,7 @@ function changeCamState() {
         });
     }
     n++;
-    camBtn.src = "images/cam.png";
+    camBtn.src = "static/images/cam.png";
     console.log("cam ON");
   } else {
     var stream = myVideo.srcObject;
@@ -80,7 +80,7 @@ function changeCamState() {
     }
     n++;
     myVideo.srcObject = null;
-    camBtn.src = "images/cam_off.png";
+    camBtn.src = "static/images/cam_off.png";
     console.log("cam OFF");
   }
 }
@@ -88,11 +88,11 @@ function changeCamState() {
 function changeMicState() {
   if (m % 2 == 0) {
     m++;
-    micBtn.src = "images/mic.png";
+    micBtn.src = "static/images/mic.png";
     console.log("mic ON");
   } else {
     m++;
-    micBtn.src = "images/mic_off.png";
+    micBtn.src = "static/images/mic_off.png";
     console.log("mic OFF");
   }
 }
