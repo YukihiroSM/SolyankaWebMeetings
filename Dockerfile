@@ -8,7 +8,6 @@ ENV PYTHONUNBUFFERED 1
 ARG STATIC_URL
 ENV STATIC_URL ${STATIC_URL:-/static/}
 # install dependencies
-CMD ['apt', 'install', 'python-dev']
 RUN pip install --upgrade pip
 COPY ./requirements.txt /usr/src/app
 RUN pip install -r requirements.txt
