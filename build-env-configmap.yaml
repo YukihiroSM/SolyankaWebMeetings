@@ -1,0 +1,20 @@
+apiVersion: v1
+data:
+  DATABASE_HOST: db
+  DATABASE_NAME: db
+  DATABASE_PASS: postgres
+  DATABASE_USER: postgres
+  DEBUG_MODE: "True"
+  POSTGRES_DB: db
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_USER: postgres
+  REDIS_PORT: "6379"
+  REDIS_URL: redis
+  SECRET_KEY: dummy
+  STATIC_URL: /static/
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: backend-build-env
+  name: build-env

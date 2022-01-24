@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml --volumes hostPath
+    kompose.service.type: LoadBalancer
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: backend
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: backend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml --volumes hostPath
+        kompose.service.type: LoadBalancer
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/network: "true"
+        io.kompose.service: backend
+    spec:
+      containers:
+        - args:
+            - bash
+            - -c
+            - python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8000
+          env:
+            - name: DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DATABASE_HOST
+                  name: build-env
+            - name: DATABASE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: DATABASE_NAME
+                  name: build-env
+            - name: DATABASE_PASS
+              valueFrom:
+                configMapKeyRef:
+                  key: DATABASE_PASS
+                  name: build-env
+            - name: DATABASE_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: DATABASE_USER
+                  name: build-env
+            - name: DEBUG_MODE
+              valueFrom:
+                configMapKeyRef:
+                  key: DEBUG_MODE
+                  name: build-env
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_DB
+                  name: build-env
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: build-env
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_USER
+                  name: build-env
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_PORT
+                  name: build-env
+            - name: REDIS_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_URL
+                  name: build-env
+            - name: SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: SECRET_KEY
+                  name: build-env
+            - name: STATIC_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: STATIC_URL
+                  name: build-env
+          image: backend
+          name: backend
+          ports:
+            - containerPort: 8000
+          resources: {}
+          volumeMounts:
+            - mountPath: /usr/src/app
+              name: backend-hostpath0
+      restartPolicy: Always
+      volumes:
+        - hostPath:
+            path: /home/universe.dart.spb/asmidonov/DataArt/hackaton/SolyankaWebMeetings/web_platform
+          name: backend-hostpath0
+status: {}
